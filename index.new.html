@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jennifer Michetti — UX Strategist & Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F2ED;
+      --ink: #0D0D0D;
+      --accent: #7A5C30;
+      --muted: #4A4540;
+      --line: #C8C0B4;
+      --white: #FDFCFA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+    }
+
+    .hero-left { max-width: 520px; }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-left: 1px solid var(--line);
+      padding-left: 4rem;
+    }
+
+    .stat {
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat:last-child { border-bottom: none; }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* BUTTONS */
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 em { font-style: italic; color: var(--accent); }
+
+    /* APPROACH */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .approach-card {
+      padding: 2rem;
+      border: 1px solid var(--line);
+      background: var(--white);
+      transition: border-color 0.2s;
+    }
+
+    .approach-card:hover { border-color: var(--accent); }
+
+    .approach-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .approach-card h3 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    .approach-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* WORK */
+    .work-list { margin-top: 3rem; }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 3rem;
+      padding: 3rem 0;
+      border-top: 1px solid var(--line);
+      cursor: pointer;
+    }
+
+    .work-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .work-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .work-title {
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .work-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-impact {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .impact-item {}
+
+    .impact-number {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .impact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .work-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding-top: 2rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 0.3rem 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .about-text p strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .skills-list {
+      list-style: none;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 2rem;
+    }
+
+    .skills-list li {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skills-list li:last-child { border-bottom: none; }
+
+    .skills-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    /* CONTACT */
+    .contact-inner {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-inner h2 { color: #FFFFFF; }
+    .contact-inner h2 em { color: #C49A6C; }
+
+    .contact-inner p {
+      color: #E0DBD5;
+      font-size: 1rem;
+      margin-top: 1rem;
+      line-height: 1.8;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      text-decoration: none;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s;
+      overflow: visible;
+      min-width: 0;
+    }
+
+    .contact-link > div:first-child {
+      flex: 1;
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .contact-link:hover { border-color: #C49A6C; }
+
+    .contact-link-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A8A09A;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-link-value {
+      font-size: 1rem;
+      color: #FFFFFF;
+      white-space: normal;
+      word-break: normal;
+      overflow: visible;
+    }
+
+    .contact-arrow {
+      margin-left: auto;
+      color: #C49A6C;
+      font-size: 1.2rem;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 0 3rem;
+      max-width: calc(100% - 6rem);
+    }
+
+    /* FADE IN */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left, .hero-right {
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .hero-right { animation-delay: 0.15s; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero-right { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .work-item { grid-template-columns: 1fr; gap: 1rem; }
+      .work-tags { align-items: flex-start; flex-direction: row; flex-wrap: wrap; padding-top: 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-inner { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+      .contact-link { padding: 1.2rem; }
+      .contact-links { gap: 1rem; }
+      #contact { padding: 0 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-name">Jennifer Michetti</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">User Lead · Senior UX Strategist & Researcher</div>
+      <h1>I design by <em>understanding</em> people first</h1>
+      <p class="hero-desc">
+        10+ years designing physical products and enterprise experiences — from video conferencing devices to medical hardware. I solve complex human problems through research, strategy, and clear thinking.
+      </p>
+      <div class="btn-group">
+        <a href="#work" class="btn btn-primary">View Work</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Years in UX Research & Strategy</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">4/5</div>
+        <div class="stat-label">Performance Rating — Talent Recognition at GN Group</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">Expertise</div>
+        <div class="stat-label">Enterprise, Digital Products & Software, Luxury, and Product-Driven Contexts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="section-label">My Approach</div>
+    <h2>UX <em>strategist</em></h2>
+    <p style="color: var(--muted); max-width: 600px; font-size: 1.05rem; line-height: 1.8;">
+      I start with understanding — users' goals, constraints, and context. My work answers <em>what should we build and why</em>, not just how it should look.
+    </p>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="approach-icon">01 — Research</div>
+        <h3>Deep User Understanding</h3>
+        <p>Qualitative interviews, usability testing, observation studies. I research with real users in real contexts — including elderly users, enterprise IT managers, and frontline workers.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">02 — Strategy</div>
+        <h3>Problem Definition First</h3>
+        <p>Before any wireframe, I define the right problem to solve. I map journeys, identify friction, and translate complexity into clear, prioritized design direction.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">03 — Hardware + Software</div>
+        <h3>Physical Product Expertise</h3>
+        <p>Rare experience designing where hardware ergonomics and software UX intersect — bringing depth and specificity that generalist digital design cannot replicate.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-icon">04 — Impact</div>
+        <h3>Design as a Business Lever</h3>
+        <p>I connect UX decisions to business metrics — adoption rates, support ticket reduction, task completion time. Every design choice earns its place through measurable outcome.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-label">Selected Work</div>
+    <h2>Projects with <em>measurable</em> impact</h2>
+
+    <div class="work-list">
+
+      <!-- #Product 1 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Product · Jabra | GN Group · Video Conferencing · 2026</div>
+          <div class="work-title">Video Conference Rooms — Enhanced Hybrid Work Experience</div>
+          <p class="work-desc">
+            New devices for the large room portfolio of Jabra, enhancing the user experience for hybrid collaboration. Intelligent large room video solutions — Jabra PanaCast 55 VBS with extension audio and video — bring clarity, inclusion and effortless setup to the biggest spaces. The project required discovery, competitor analysis, user research, UX & UI design and testing. I provided design system, research insights, user flows, wireframes, high fidelity prototypes, documentation and EAP testing support.
+          </p>
+          <div class="work-impact">
+            <div class="impact-item">
+              <div class="impact-number">🏆</div>
+              <div class="impact-label">Best of Show<br>ISE 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">UX Research</span>
+          <span class="tag">Product Design</span>
+          <span class="tag">Hardware UX</span>
+          <span class="tag">Customer Experience</span>
+          <span class="tag">Agile · EAP</span>
+          <span class="tag">Figma · PowerBI</span>
+        </div>
+      </div>
+
+      <!-- #Product 2 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Product · Jabra | GN Group · Video Conferencing · 2025</div>
+          <div class="work-title">Video Conference Rooms — AI Powered</div>
+          <p class="work-desc">
+            Collaborated with UX and Research teams to collect insights from customers and decision makers. Qualitative and quantitative research led to a new way of thinking the experience in the room. As User Lead, I built a new portfolio consistent with the brand, capable of innovating the user and customer experience. PanaCast 40 VBS allows IT Installers to quickly provision many devices out of the box. Clear results in the market proved the business value of the design delivered.
+          </p>
+          <div class="work-impact">
+            <div class="impact-item">
+              <div class="impact-number">SAFe</div>
+              <div class="impact-label">Agile Framework<br>Cross-functional</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">UX Research</span>
+          <span class="tag">User Lead</span>
+          <span class="tag">AI-Powered UX</span>
+          <span class="tag">EAP Testing</span>
+          <span class="tag">Figma · PowerBI</span>
+        </div>
+      </div>
+
+      <!-- #Product 3 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Product · Nautes · Service Design · 2022</div>
+          <div class="work-title">Track | Omag — Service & UX Design for Enterprise Software</div>
+          <p class="work-desc">
+            Analysis of legacy software, providing user journeys, service blueprints, ecosystem mapping, identifying pain points and opportunities, co-creating solutions with designers and engineers. Ensured the service was usable, feasible and scalable. Conducted interviews, user testing, in-site analysis for both hardware and software touchpoints (HDMI displays, Tablet, App, Web). The JTBD approach supported research and accelerated the business proposition.
+          </p>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Service Design</span>
+          <span class="tag">UX Research</span>
+          <span class="tag">Double Diamond</span>
+          <span class="tag">JTBD</span>
+          <span class="tag">SaaS</span>
+          <span class="tag">Figma · Notion</span>
+        </div>
+      </div>
+
+      <!-- #Product 4 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Product · Antrox · Light Design · 2021</div>
+          <div class="work-title">HouseBoat | Living Divani — Design Week Milano</div>
+          <p class="work-desc">
+            In charge of e-commerce and website UX for Antrox, a Light Design company in Ancona. Worked closely with engineers for product definition and Milan agencies for communication. Owned the whole campaign for Design Week 2021 in Milan. HouseBoat — in collaboration with Micheletti + Partners & Rubner Haus — celebrated living at sea as balance with the environment, part of Rossana Orlandi's RoGUILTLESSPLASTIC vision. Living Divani with Piero Lissoni and Flos explored artificial light as means, not end.
+          </p>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Customer Experience</span>
+          <span class="tag">Light Design</span>
+          <span class="tag">WordPress</span>
+          <span class="tag">Design Week Milano</span>
+        </div>
+      </div>
+
+      <!-- #Digital Products & Software 1 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Digital Products & Software · Nautes · 2023</div>
+          <div class="work-title">Teamgroove — HR Digital Platform</div>
+          <p class="work-desc">
+            Service Designer for concept and business delivery of a digital platform for human resources management and organizational process optimization in enterprise contexts. Created blueprints, user flows, personas, ecosystem and stakeholder mapping, user testing and research. My background in Philosophy contributed to strengthening the "Be" concept at the core of the platform's design. As UX Designer I delivered design system, wireframes, high fidelity prototypes and documentation.
+          </p>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Service Design</span>
+          <span class="tag">Android · iOS</span>
+          <span class="tag">Design Thinking</span>
+          <span class="tag">Figma · Jira</span>
+        </div>
+      </div>
+
+      <!-- #Digital Products & Software 2 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Digital Products & Software · Nautes · 2022</div>
+          <div class="work-title">Fla Plus | Erga Tourism | Elaasta</div>
+          <p class="work-desc">
+            End-to-end service design connecting user needs, business goals, and operational realities into one coherent service. Research useful for users and workable for the organizations delivering it. Delivered design system, wireframes, high fidelity prototypes and documentation for developers and marketing across three distinct digital product contexts.
+          </p>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Service Design</span>
+          <span class="tag">UX Research</span>
+          <span class="tag">Android · iOS</span>
+          <span class="tag">Figma · Jira</span>
+        </div>
+      </div>
+
+      <!-- #Luxury 1 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Luxury · Brunello Cucinelli · CXO & CRO Lead · 2024</div>
+          <div class="work-title">Symphony of Emotions | Sound of Cashmere</div>
+          <p class="work-desc">
+            Projects combining different senses — a customer journey marked by the notes of emotion, unhurried and timeless. Natural evolution of brand storytelling, with a user experience across touchpoints: Spotify, Social Media, E-commerce platform. As UX Design team lead, I guided coherence across all touchpoints and led campaign and brand identity definition. As CRO lead, measured KPIs and business analytics and evaluated overall conversion rate. Managed a multi-cultural team of content, illustrators, artists, developers.
+          </p>
+          <div class="work-impact">
+            <div class="impact-item">
+              <div class="impact-number">CRO</div>
+              <div class="impact-label">Conversion Rate<br>Optimization Lead</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Brand Identity</span>
+          <span class="tag">CX · CRO</span>
+          <span class="tag">Content Strategy</span>
+          <span class="tag">Figma · ContentSquare</span>
+          <span class="tag">Tableau · Asana</span>
+        </div>
+      </div>
+
+      <!-- #Luxury 2 -->
+      <div class="work-item">
+        <div>
+          <div class="work-meta">#Luxury · Brunello Cucinelli · UX Lead · 2024</div>
+          <div class="work-title">Hotel of Dreams | BC Duo | Incanti Poetici</div>
+          <p class="work-desc">
+            Led user experience and customer experience design for the main brand campaigns, collaborating with cross-functional teams: UX, content & social media, developers, business and marketing. Hotel of Dreams (Christmas Holiday Campaign) included an interactive immersive experience for web and mobile. As CRO lead, defined conversion rate and KPIs. As UX Lead, provided measurable insights for results and guided the design and content team toward a coherent, valuable and immersive experience.
+          </p>
+        </div>
+        <div class="work-tags">
+          <span class="tag">UX Lead</span>
+          <span class="tag">CRO · CX</span>
+          <span class="tag">Immersive Design</span>
+          <span class="tag">Figma · ContentSquare</span>
+          <span class="tag">Tableau · Asana</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Philosophy graduate.<br><em>UX strategist</em> by nature.</h2>
+        <p>
+          My path from philosophy to UX was not accidental. Both disciplines ask the same fundamental question: <strong>what does it mean to understand something from another person's perspective?</strong> I bring that rigour to every research study, workshop, and design decision.
+        </p>
+        <p>
+          With 10+ years designing for physical products — video conferencing hardware, medical devices, enterprise software — I specialize in the complex intersection where ergonomics, technology, compliance, and human needs converge.
+        </p>
+        <p>
+          I am recognized as a <strong>talent at GN Group (4/5 performance rating)</strong>, and my work has been endorsed by cross-functional leaders for its strategic and business value, not just its design quality.
+        </p>
+        <p>
+          I design by deeply understanding users — their goals, constraints, and context. I start with research, not assumptions. And I believe the most impactful UX work happens when designers have the courage to define the right problem, not just solve the obvious one.
+        </p>
+      </div>
+      <div>
+        <ul class="skills-list">
+          <li>User Research & Synthesis</li>
+          <li>UX Strategy & Frameworks</li>
+          <li>Workshop Facilitation</li>
+          <li>Hardware + Software Integration</li>
+          <li>Accessibility & Inclusive Design</li>
+          <li>Stakeholder Management</li>
+          <li>CRO & Behavioral Analytics</li>
+          <li>Cross-functional Collaboration</li>
+          <li>Figma · Miro · Contentsquare</li>
+          <li>English & Italian (Fluent)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="max-width: 100%; padding: 0 0 6rem;">
+    <div class="contact-inner">
+      <div>
+        <div class="section-label" style="color: #C49A6C;">Contact</div>
+        <h2>Let's work <em>together</em></h2>
+        <p>
+          Open to senior UX research and strategy roles — in hardware, medical devices, enterprise, or consulting. Remote EU or hybrid.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/jennifer-michetti" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">jennifer-michetti</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="mailto:jennifermichetti17@gmail.com" class="contact-link">
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">jennifermichetti17@gmail.com</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="https://grove-dollar-98a.notion.site/Portfolio-Jennifer-Michetti-12b9efd44ed843b7bf2141ef9ab0e80f" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">Full Case Studies</div>
+            <div class="contact-link-value">View</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
